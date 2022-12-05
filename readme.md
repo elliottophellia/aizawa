@@ -7,6 +7,7 @@
 cd aizawa
 php aizawa.php [url]</pre>
 <img src="./images/ss.png" width="100%" align="center"/>
+<img src="./images/sss.png" width="100%" align="center"/>
 <h1>License</h1>
 <p>
 GNU GENERAL PUBLIC LICENSE<br/>
