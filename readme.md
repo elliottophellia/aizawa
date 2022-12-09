@@ -1,7 +1,7 @@
 <img src="./images/aizawa-ema.gif" align="right"/>
 <h1>Aizawa</h1>
-<p><img src="https://img.shields.io/badge/PHP-8.1-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.1-a3be8c?style=flat-square"/><br/>
-<p>A super simple command-line webshell that executes commands via the HTTP header in order to avoid any WAF or IDS.</p>
+<p><img src="https://img.shields.io/badge/PHP-8.1-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.2-a3be8c?style=flat-square"/><br/>
+<p>A super simple command-line webshell that executes commands via the HTTP request in order to avoid any WAF or IDS.</p>
 <h1>Installation</h1>
 <pre>git clone https://github.com/elliottophellia/aizawa
 cd aizawa
