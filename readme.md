@@ -1,11 +1,27 @@
 <img src="./images/aizawa-ema.gif" align="right"/>
 <h1>Aizawa</h1>
-<p><img src="https://img.shields.io/badge/PHP-7.4-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.0-a3be8c?style=flat-square"/><br/>
+<p><img src="https://img.shields.io/badge/PHP-8.1-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.1-a3be8c?style=flat-square"/><br/>
 <p>A super simple command-line webshell that executes commands via the HTTP header in order to avoid any WAF or IDS.</p>
 <h1>Installation</h1>
 <pre>git clone https://github.com/elliottophellia/aizawa
 cd aizawa
 php aizawa.php [url]</pre>
+<h1>Changelogs</h1>
+<ul>
+<li>Update 1.0.2</li>
+   <ul>
+    <li>Added POST request</li>
+    <li>Added code optimization</li>
+    <li>Added credit to refrence</li>
+    <li>Removed assert shell</li>
+    <li>Removed obfuscated shell</li>
+   </ul>
+<li>Update 1.0.1</li>
+   <ul>
+    <li>Added Ninja Edition</li>
+   </ul>
+</ul>
+<h1>Screenshots</h1>
 <img src="./images/ss.png" width="100%" align="center"/>
 <img src="./images/sss.png" width="100%" align="center"/>
 <h1>License</h1>
