@@ -7,20 +7,20 @@
 cd aizawa
 php aizawa.php [url]</pre>
 <h1>Changelogs</h1>
-<ul>
-<li>Update 1.0.2</li>
-   <ul>
-    <li>Added POST request</li>
-    <li>Added code optimization</li>
-    <li>Added credit to refrence</li>
-    <li>Removed assert shell</li>
-    <li>Removed obfuscated shell</li>
-   </ul>
-<li>Update 1.0.1</li>
-   <ul>
-    <li>Added Ninja Edition</li>
-   </ul>
-</ul>
+
+#### Update 1.0.3
+- [ ] Recognizing formats other than .PHP
+- [ ] Find & fix some bugs
+- [ ] Code improvement
+#### Update 1.0.2
+- [X] Added POST request
+- [X] Added code optimization
+- [X] Added credit to refrence
+- [X] Remove assert shell
+- [X] Remove obfuscated shell
+#### Update 1.0.1
+- [X] Added Ninja Edition
+
 <h1>Screenshots</h1>
 <img src="./images/ss.png" width="100%" align="center"/>
 <img src="./images/sss.png" width="100%" align="center"/>
