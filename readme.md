@@ -1,6 +1,6 @@
 <img src="./images/aizawa-ema.gif" align="right"/>
 <h1>Aizawa</h1>
-<p><img src="https://img.shields.io/badge/PHP-8.1-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.2-a3be8c?style=flat-square"/><br/>
+<p><img src="https://img.shields.io/badge/PHP-8.1-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.0.3-a3be8c?style=flat-square"/><br/>
 <p>A super simple command-line webshell that executes commands via the HTTP request in order to avoid any WAF or IDS.</p>
 <h1>Installation</h1>
 <pre>git clone https://github.com/elliottophellia/aizawa
@@ -9,9 +9,14 @@ php aizawa.php [url]</pre>
 <h1>Changelogs</h1>
 
 #### Update 1.0.3
-- [ ] Recognizing formats other than .PHP
-- [ ] Find & fix some bugs
-- [ ] Code improvement
+- [X] Fix bug in line 24 
+```bash
+PHP Warning:  require(/home/rei/Documents/GitHub/aizawa./function.php): Failed to open stream: No such file or directory in /home/rei/Documents/GitHub/aizawa/aizawa.php on line 24
+PHP Fatal error:  Uncaught Error: Failed opening required '/home/rei/Documents/GitHub/aizawa./function.php' (include_path='.:') in /home/rei/Documents/GitHub/aizawa/aizawa.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/rei/Documents/GitHub/aizawa/aizawa.php on line 24
+```
 #### Update 1.0.2
 - [X] Added POST request
 - [X] Added code optimization
