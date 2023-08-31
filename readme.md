@@ -3,10 +3,25 @@
 </p>
 <h1></h1>
 <p align='center'>
-<a href="#About"><img src="https://img.shields.io/badge/ABOUT-2e3440?style=for-the-badge"/></a> <a href="#Prerequisites"><img src="https://img.shields.io/badge/PREREQUISITES-2e3440?style=for-the-badge"/></a> <a href="#Installing"><img src="https://img.shields.io/badge/INSTALLING-2e3440?style=for-the-badge"/></a> <a href="#Screenshot"><img src="https://img.shields.io/badge/SCREENSHOT-2e3440?style=for-the-badge"/> <a href="#Licence"><img src="https://img.shields.io/badge/LICENCE-2e3440?style=for-the-badge"/></a> <a href="#Disclaimer"><img src="https://img.shields.io/badge/DISCLAIMER-2e3440?style=for-the-badge"/></a>
+<a href="#About"><img src="https://img.shields.io/badge/ABOUT-2e3440?style=for-the-badge"/></a> <a href="#Prerequisites"><img src="https://img.shields.io/badge/PREREQUISITES-2e3440?style=for-the-badge"/></a> <a href="#Installing"><img src="https://img.shields.io/badge/INSTALLING-2e3440?style=for-the-badge"/></a> <a href="#Screenshot"><img src="https://img.shields.io/badge/SCREENSHOT-2e3440?style=for-the-badge"/></a> <a href="#References"><img src="https://img.shields.io/badge/REFERENCES-2e3440?style=for-the-badge"/></a> <a href="#Licence"><img src="https://img.shields.io/badge/LICENCE-2e3440?style=for-the-badge"/></a> <a href="#Disclaimer"><img src="https://img.shields.io/badge/DISCLAIMER-2e3440?style=for-the-badge"/></a>
 </p>
 <h1></h1>
 
+```
+Note:
+- NINJA edition as far as I know is not gonna work on PHP 7+
+- GET/POST edition is working just fine on PHP 7+
+
+Changelogs - v1.1.0
+
+- Removed HEX encoding webshell
+- Removed function.php and just put it in aizawa.php
+- Refactored the function to be more efficient and simple
+- Changed the way to recognize other webshell extention not just .php
+- Added new way to execute commands in webshell with proc_open and popen
+- Added an actually useful error message not like before
+- Added an actually useful readme.md not like before
+```
 
 # About
 
@@ -36,6 +51,18 @@ NOTE: The one who will be uploaded is the webshell that is in the webshell folde
 ```
 
 # Screenshot
+
+![1](./images/1.png)
+![2](./images/2.png)
+![3](./images/3.png)
+![4](./images/4.png)
+
+# References
+
+- [s0md3v](https://github.com/s0md3v/nano)
+- [Acunetix](https://bit.ly/AcunetiX)
+- [Peter Krauss](https://stackoverflow.com/posts/2929951/revisions)
+- [Tim Post](https://stackoverflow.com/posts/2929951/revisions)
 
 # Licence
 
