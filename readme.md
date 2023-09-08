@@ -26,17 +26,17 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 ```
 git clone http://github.com/elliottopellia/aizawa
 ```
-### 2. Install dependencies
+### 2. Change directory to aizawa
+```
+cd aizawa
+```
+### 3. Install dependencies
 ```
 Ubuntu/Debian based:
 pip install -r requirements.txt
 
 Arch Linux based:
 pacman -S python-httpx python-validators
-```
-### 3. Change directory to aizawa
-```
-cd aizawa
 ```
 ### 4. Run aizawa
 ```
