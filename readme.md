@@ -1,6 +1,6 @@
 <p align='center'>
 <img src='./images/aizawa.png' width='300'/><br/><img src="https://img.shields.io/badge/AIZAWA%20BYPASS%20WEBSHELL-2e3440?style=for-the-badge"/><br/>
-Aizawa is a super simple command-line webshell that executes commands via the HTTP request in order to <b>avoid any WAF or IDS while bypassing disable_function</b>. The name Aizawa itself is taken from virtual youtuber <a href="https://www.youtube.com/channel/UCPkKpOHxEDcwmUAnRpIu-Ng">Aizawa Ema</a> from <a href="https://vspo.jp/">Virtual Esport Project</a>. Ema itself is a girl who likes bread and cats. She's always trying to improve her game skills. She wants to be a neat and tidy character, but is she really?<br/><br/><img src="https://img.shields.io/badge/PHP-7.4-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.2.0-a3be8c?style=flat-square"/><br/><a href="https://www.paypal.com/paypalme/elliottophellia"><img src="https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white"/></a> <a href="https://saweria.co/elliottophellia"><img src="https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black"/></a>
+Aizawa is a super simple command-line webshell that executes commands via the HTTP request in order to <b>avoid any WAF or IDS while bypassing disable_function</b>. The name Aizawa itself is taken from virtual youtuber <a href="https://www.youtube.com/channel/UCPkKpOHxEDcwmUAnRpIu-Ng">Aizawa Ema</a> from <a href="https://vspo.jp/">Virtual Esport Project</a>. Ema itself is a girl who likes bread and cats. She's always trying to improve her game skills. She wants to be a neat and tidy character, but is she really?<br/><br/><img src="https://img.shields.io/badge/PYTHON-3.10-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.3.0-a3be8c?style=flat-square"/><br/><a href="https://www.paypal.com/paypalme/elliottophellia"><img src="https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white"/></a> <a href="https://saweria.co/elliottophellia"><img src="https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black"/></a>
 </p>
 <h1></h1>
 <p align='center'>
@@ -8,106 +8,45 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 </p>
 <h1></h1>
 
-# Changelogs - v1.2.0
+# Changelogs - v1.3.0
 
-- Added NINJA CONCAT edition
-- Added NINJA USER_FILTER edition
-- Added NINJA GARBAGE_COLLECTOR edition
-- Added NINJA JSON_SERIALIZER edition
-- Added NINJA DEBUG_BACKTRACE edition
-- Fix bug in interactive shell that causes entire line to be deleted when pressing backspace
-- Fix bug in interactive shell that causes hostname displayed as $user when server response with null instead of $hostname
-
-
-## What are those editions?
-
-### NINJA CONCAT
-This exploit uses a [bug](https://bugs.php.net/bug.php?id=81705) in a function that handles string concatenation. A statement such as `$a.$b` might result in memory corruption if certain conditions are met. The bugreport provides a very thorough analysis of the vulnerability. 
-
-The PoC was tested on various php builds for Debian/Ubuntu/CentOS/FreeBSD with cli/fpm/apache2 server APIs and found to work reliably.
-
-#### Targets
-  - 7.3 - all versions to date
-  - 7.4 - all versions to date
-  - 8.0 - all versions to date
-  - 8.1 - all versions to date
-
-Credits to [@mm0r1](https://github.com/mm0r1) for the PoC
-
-### NINJA USER_FILTER
-This exploit uses a [bug](https://bugs.php.net/bug.php?id=54350) **reported over 10 years ago**. As usual, the PoC was tested on various php builds for Debian/Ubuntu/CentOS/FreeBSD with cli/fpm/apache2 server APIs and found to work reliably.
-
-#### Targets
-  - 5.* - exploitable with minor changes to the PoC
-  - 7.0 - all versions to date
-  - 7.1 - all versions to date
-  - 7.2 - all versions to date
-  - 7.3 - all versions to date
-  - 7.4 < 7.4.26
-  - 8.0 < 8.0.13
-
-Credits to [@mm0r1](https://github.com/mm0r1) for the PoC
-
-### NINJA GARBAGE_COLLECTOR
-This exploit uses a three year old [bug](https://bugs.php.net/bug.php?id=72530) in PHP garbage collector to bypass `disable_functions` and execute a system command. It was tested on various php7.0-7.3 builds for Ubuntu/CentOS/FreeBSD with cli/fpm/apache2 server APIs and found to work reliably. Feel free to submit an issue if you experience any problems.
-
-#### Targets
-  - 7.0 - all versions to date
-  - 7.1 - all versions to date
-  - 7.2 - all versions to date
-  - 7.3 - all versions to date
-
-Credits to [@mm0r1](https://github.com/mm0r1) for the PoC
-
-### NINJA JSON_SERIALIZER
-This exploit utilises a use after free [vulnerability](https://bugs.php.net/bug.php?id=77843) in json serializer in order to bypass `disable_functions` and execute a system command. It should be fairly reliable and work on all server apis, although that is not guaranteed.
-
-#### Targets
-  - 7.1 - all versions to date
-  - 7.2 < 7.2.19 (released: 30 May 2019)
-  - 7.3 < 7.3.6 (released: 30 May 2019)
-
-Credits to [@mm0r1](https://github.com/mm0r1) for the PoC and [@cfreal](https://github.com/cfreal) for the original bug discovery.
-
-### NINJA DEBUG_BACKTRACE
-This exploit uses a two year old [bug](https://bugs.php.net/bug.php?id=76047) in debug_backtrace() function. We can trick it into returning a reference to a variable that has been destroyed, causing a use-after-free vulnerability. The PoC was tested on various php builds for Debian/Ubuntu/CentOS/FreeBSD with cli/fpm/apache2 server APIs and found to work reliably.
-
-#### Targets
-  - 7.0 - all versions to date
-  - 7.1 - all versions to date
-  - 7.2 - all versions to date
-  - 7.3 < 7.3.15 (released 20 Feb 2020)
-  - 7.4 < 7.4.3 (released 20 Feb 2020)
-
-Credits to [@mm0r1](https://github.com/mm0r1) for the PoC
+- Migration to Python 3.10
+- Fix [issue #4](https://github.com/elliottophellia/aizawa/issues/4)
 
 # Prerequisites
 
-- PHP 7.4 or higher
-- PHP cURL
+- Python 3.10
+- Pip 22.0.2 
+- Httpx 0.24.1
+- Validators 0.20.0
 
 # Installing
 
-## 1. Clone this repository
+### 1. Clone this repository
 ```
 git clone http://github.com/elliottopellia/aizawa
 ```
-## 2. Change directory to aizawa
+### 2. Install dependencies
+```
+Ubuntu/Debian based:
+pip install -r requirements.txt
+
+Arch Linux based:
+pacman -S python-httpx python-validators
+```
+### 3. Change directory to aizawa
 ```
 cd aizawa
 ```
-## 3. Run aizawa
+### 4. Run aizawa
 ```
-php aizawa.php / php aizawa.php [webshell url]
-```
-```
-NOTE: The one who will be uploaded is the webshell that is in the webshell folder NOT THE AIZAWA.PHP ITSELF
+python aizawa.py / python aizawa.py [webshell url]
 ```
 
 # Screenshot
 
-![1](./images/1.png)
-![2](./images/2.png)
+![1](./images/ss1.png)
+![2](./images/ss2.png)
 
 # References
 
