@@ -1,0 +1,2 @@
+httpx==0.24.1
+validators==0.20.0
