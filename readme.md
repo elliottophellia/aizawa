@@ -1,6 +1,6 @@
 <p align='center'>
 <img src='./images/aizawa.png' width='300'/><br/><img src="https://img.shields.io/badge/AIZAWA%20BYPASS%20WEBSHELL-2e3440?style=for-the-badge"/><br/>
-Aizawa is a super simple command-line webshell that executes commands via the HTTP request in order to <b>avoid any WAF or IDS while bypassing disable_function</b>. The name Aizawa itself is taken from virtual youtuber <a href="https://www.youtube.com/channel/UCPkKpOHxEDcwmUAnRpIu-Ng">Aizawa Ema</a> from <a href="https://vspo.jp/">Virtual Esport Project</a>. Ema itself is a girl who likes bread and cats. She's always trying to improve her game skills. She wants to be a neat and tidy character, but is she really?<br/><br/><img src="https://img.shields.io/badge/PYTHON-3.10-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.3.1-a3be8c?style=flat-square"/><br/><a href="https://www.paypal.com/paypalme/elliottophellia"><img src="https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white"/></a> <a href="https://saweria.co/elliottophellia"><img src="https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black"/></a>
+Aizawa is a super simple command-line webshell that executes commands via the HTTP request in order to <b>avoid any WAF or IDS while bypassing disable_function</b>. The name Aizawa itself is taken from virtual youtuber <a href="https://www.youtube.com/channel/UCPkKpOHxEDcwmUAnRpIu-Ng">Aizawa Ema</a> from <a href="https://vspo.jp/">Virtual Esport Project</a>. Ema itself is a girl who likes bread and cats. She's always trying to improve her game skills. She wants to be a neat and tidy character, but is she really?<br/><br/><img src="https://img.shields.io/badge/PYTHON-3.10-bf616a?style=flat-square"/> <img src="https://img.shields.io/badge/LICENE-GPL2.0-ebcb8b?style=flat-square"/> <img src="https://img.shields.io/badge/VERSION-1.3.2-a3be8c?style=flat-square"/><br/><a href="https://www.paypal.com/paypalme/elliottophellia"><img src="https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white"/></a> <a href="https://saweria.co/elliottophellia"><img src="https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black"/></a>
 </p>
 <h1></h1>
 <p align='center'>
@@ -8,21 +8,22 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 </p>
 <h1></h1>
 
-# Changelogs - v1.3.1
+# Changelogs - v1.3.2
 
-- Use Context Managers for HTTP Clients
-- Reuse HTTP Clients
-- More specific Error Handling
-- Avoid Repetitive Code
+- Refactored the code
+- Added Async Support
+- Added HTTP/2 Support
+- Added custom http headers to impersonate Chrome
+- Fixed [#7](https://github.com/elliottophellia/aizawa/issues/7)
 
-Compare [v1.3.0...v1.3.1](https://github.com/elliottophellia/aizawa/compare/v1.3.0...v1.3.1)
+Compare [v1.3.1...v1.3.2](https://github.com/elliottophellia/aizawa/compare/v1.3.1...v1.3.2)
 
 # Prerequisites
 
 - Python 3.10
 - Pip 22.0.2 
-- Httpx 0.24.1
-- Validators 0.20.0
+- Httpx[http2] 0.25.0
+- Validators 0.22.0
 
 # Installing
 
