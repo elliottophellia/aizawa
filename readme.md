@@ -14,11 +14,7 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 - Added Async Support
 - Added HTTP/2 Support
 - Added custom http headers to impersonate Chrome
-
-## Known Issue
-
-- Any kind of POST request not work, error unknown, need fix asap
-   - It seems already an Issue since 1.3.0
+- Fixed a bug where any kinds of POST request would return null since v1.3.0
 
 Compare [v1.3.1...v1.3.2](https://github.com/elliottophellia/aizawa/compare/v1.3.1...v1.3.2)
 
