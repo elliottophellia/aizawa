@@ -91,7 +91,7 @@ async def http_accept_language_post(client, url, data, cmd):
 
 
 async def http_aizawa_ninja(client, url, cmd):
-    headers = create_headers(cmd, user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36')
+    headers = create_headers()
     headers["Aizawa-Ninja"] = base64.b64encode(cmd.encode('utf-8'))
     return await http_request(client, 'get', url, headers)
 
@@ -100,7 +100,7 @@ async def execute(client, url, cmd, type):
     match type:
         case "ping":
             try:
-                headers = create_headers(None, None)
+                headers = create_headers()
                 r = await client.get(url, headers=headers, follow_redirects=True)
                 if r.status_code != 200:
                     print(bold + yellow + 'WARNING!' + clear + '\n' + red + 'ERROR' + clear +
@@ -112,14 +112,14 @@ async def execute(client, url, cmd, type):
                 sys.exit()
 
         case "get":
-            headers = create_headers(None, None)
+            headers = create_headers()
             r = await http_request(client, 'get', url+cmd, headers)
             if not r:
                 result = red + 'ERROR' + clear + '\n'
             return r
 
         case "post":
-            headers = create_headers(None, None)
+            headers = create_headers()
             r = await http_request(client, 'post', url, headers, data={cmd})
             if not r:
                 result = red + 'ERROR' + clear + '\n'
