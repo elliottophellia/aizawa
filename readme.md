@@ -58,7 +58,6 @@ python aizawa.py / python aizawa.py [webshell url]
 - [s0md3v](https://github.com/s0md3v/nano)
 - [Acunetix](https://bit.ly/AcunetiX)
 - [mm0r1](https://github.com/mm0r1)
-- [foneyop](https://github.com/s0md3v/nano/issues/7#issue-404153297)
 
 # Licence
 
