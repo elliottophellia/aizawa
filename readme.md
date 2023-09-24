@@ -11,7 +11,7 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 # Changelogs - v1.3.3
 
 - Added new files structure for better organization
-- Added `execute_http_request_*` functions to simplefy execute request
+- Added `execute_http_request_*` functions to simplify execute request
 - Refactored the `execute` function to improve code readability.
 
 Compare [v1.3.2...v1.3.3](https://github.com/elliottophellia/aizawa/compare/v1.3.2...v1.3.3)
