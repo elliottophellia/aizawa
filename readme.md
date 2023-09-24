@@ -10,9 +10,9 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 
 # Changelogs - v1.3.3
 
-- Refactored the code
-- Fix Code Duplication
-
+- Added new files structure for better organization
+- Added `execute_http_request_*` functions to simplefy execute request
+- Refactored the `execute` function to improve code readability.
 
 Compare [v1.3.2...v1.3.3](https://github.com/elliottophellia/aizawa/compare/v1.3.2...v1.3.3)
 
@@ -43,7 +43,7 @@ pacman -S python-httpx python-validators
 ```
 ### 4. Run aizawa
 ```
-python aizawa.py / python aizawa.py [webshell url]
+python main.py / python main.py [webshell url]
 ```
 
 # Screenshot
