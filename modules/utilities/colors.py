@@ -1,4 +1,3 @@
-# Colors
 RED = "\033[31m"
 BOLD = "\033[1m"
 CYAN = "\033[36m"
