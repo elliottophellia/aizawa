@@ -1,11 +1,23 @@
 import sys
-import httpx
 import asyncio
+from modules.header import Headers
 from modules.http import HttpRequest, HttpMethods
-from modules.utilities import YELLOW, RED, CLEAR, BOLD, Headers
-
+from modules.colors import YELLOW, RED, CLEAR, BOLD, CYAN, BLUE, PURPLE
 
 class Executor:
+    """
+        Execute an HTTP GET request using the provided client, URL, command, method, and request function.
+
+        Args:
+            client (Client): The HTTP client to use for sending the request.
+            url (str): The URL to send the request to.
+            cmd (str): The command to append to the URL.
+            method (str): The HTTP method to use for the request.
+            request_func (Callable): The function to use for sending the request.
+
+        Returns:
+            The result of the request, or None if no result is available.
+    """
     @staticmethod
     async def execute_http_request_get(client, url, cmd, method, request_func):
         result = await request_func(client, url + method, cmd)
@@ -20,25 +32,24 @@ class Executor:
             return result
         return None
 
+    """
+        Executes a given command based on the provided client, URL, command, and type.
+
+        Args:
+            client (httpx.AsyncClient): The HTTP client used for making requests.
+            url (str): The URL to send the request to.
+            cmd (str): The command to execute.
+            type (str): The type of command to execute.
+
+        Returns:
+            str: The result of the executed command.
+
+        Raises:
+            SystemExit: If an invalid HTTP response code is received or if the URL is not reachable.
+
+    """
     @staticmethod
     async def execute(client, url, cmd, type):
-        if type == "ping":
-            try:
-                headers = Headers.create()
-                r = await client.get(url, headers=headers, follow_redirects=True)
-                if r.status_code != 200:
-                    sys.exit(
-                        print(
-                            f"{BOLD}{YELLOW}WARNING!{CLEAR}\n{RED}ERROR{CLEAR}: Invalid HTTP response code\nPlease check the URL and try again\n"
-                        )
-                    )
-            except httpx.RequestError as e:
-                sys.exit(
-                    print(
-                        f"{BOLD}{YELLOW}WARNING!{CLEAR}\n{RED}ERROR{CLEAR}: URL is not reachable\nPlease check the URL and try again\n"
-                    )
-                )
-
         if type in ["get", "post"]:
             headers = Headers.create()
             if type == "get":
@@ -119,3 +130,28 @@ class Executor:
                 if result:
                     return result
             return RED + "ERROR" + CLEAR
+        
+    """
+        Executes commands entered by the user.
+
+        Args:
+            client (Client): The client object.
+            url (str): The URL.
+            type (str): The type.
+            user (str): The username.
+            host (str): The hostname.
+            pwd (str): The path.
+
+        Returns:
+            Returns the result of the executed command.
+    """
+    @staticmethod
+    async def execute_commands(client, url, type, user, host, pwd):
+        while True:
+            cmd = input(f"\n{BOLD}{YELLOW}{user}{CLEAR}@{BOLD}{BLUE}{host}{CLEAR} {PURPLE}{pwd}{CLEAR} % ")
+            if cmd == "exit" or cmd == "quit" or cmd == "\x03":
+                sys.exit(print(f"{BOLD}{RED}Exiting...{CLEAR}"))
+            if not cmd:
+                continue
+
+            print(f"\n{CYAN}{await Executor.execute(client, url, cmd, type)}{CLEAR}")
