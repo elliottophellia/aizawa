@@ -1,4 +1,14 @@
 class Headers:
+    """
+        Create headers for an HTTP request.
+
+        :param user_agent: (Optional) The User-Agent header value. Defaults to a standard Chrome user agent string.
+        :type user_agent: str
+        :param accept_language: (Optional) The Accept-Language header value. Defaults to "en-US,en;q=0.9".
+        :type accept_language: str
+        :return: The headers dictionary for the HTTP request.
+        :rtype: dict
+    """
     @staticmethod
     def create(user_agent=None, accept_language=None):
         headers = {

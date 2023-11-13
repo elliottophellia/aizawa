@@ -1,8 +1,23 @@
 import base64
 from .request import HttpRequest
-from modules.utilities import Headers
+from modules.header import Headers
 
 class HttpMethods:
+    """
+        A static method that sends an HTTP GET request to the specified URL with the headers containing modified field.
+        
+        :param client: The client to use for the request.
+        :type client: Client
+
+        :param url: The URL to send the request to.
+        :type url: str
+
+        :param cmd: The command to include in the headers.
+        :type cmd: str
+
+        :return: A coroutine that resolves to the response of the request.
+        :rtype: Coroutine
+    """
     @staticmethod
     async def http_accept_language_get(client, url, cmd):
         headers = Headers.create(None, cmd)

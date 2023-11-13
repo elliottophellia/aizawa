@@ -1,4 +1,4 @@
-from .colors import YELLOW, BLUE, RED, CLEAR, BOLD, PURPLE
+from modules.colors import YELLOW, BLUE, RED, CLEAR, BOLD, PURPLE
 def Banner():
     banner_text = f"{YELLOW}\n   ___   ________  ___ _      _____ \n"
     banner_text += "  / _ | /  _/_  / / _ | | /| / / _ |\n"
