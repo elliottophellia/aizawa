@@ -8,18 +8,22 @@ Aizawa is a super simple command-line webshell that executes commands via the HT
 </p>
 <h1></h1>
 
-# Changelogs - v1.4.1
+# TODO - v2.0.0
 
-- Little cleanup of the code
-    - Moved all validating process into Validators class
-    - Moved all information printing process into Utilities
-    - Moved command execution process into Executor class
-    - Moved all colors into colors folder to avoid circular dependency
-    - Moved Header class into header folder to avoid circular dependency
-    - Moved Ping from Executor class to Ping function to avoid confusion
-    - Added docstrings so i'm not forget what the fuck i did last time
+# Minor
+- [ ] Find a better code execution method with eval to replace the current one (aizawa_ninja_eval_.php) which not that effective in newer versions of PHP
+- [ ] Find a PoC to bypass disable_function in PHP 8.2.X 
 
-Compare [v1.4.0...v1.4.1](https://github.com/elliottophellia/aizawa/compare/v1.4.0...v1.4.1)
+# Major
+- [ ] Remove both HTTP_USER_AGENT and HTTP_ACCEPT_LANGUAGE methods entirely from the code base
+- [ ] Replace httpx with HackRequests
+- [ ] Replace Headers.create with random-header-generator
+- [ ] Implement a http proxy rotator with support from [elliottophellia/yakumo](https://github.com/elliottophellia/yakumo) for each request to make it difficult to track
+- [ ] Implement a replacement for HTTP_USER_AGENT and HTTP_ACCEPT_LANGUAGE which will be using AIZAWA_NINJA like the other NINJA Shell
+- [ ] Moving the webshell itself into new repository to reduce confusion
+
+# Misc
+- [ ] Implement an Authentication for the webshells
 
 # Prerequisites
 
