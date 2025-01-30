@@ -74,3 +74,4 @@ This project is licensed under the GPL 2.0 License - see the [LICENCE](https://g
 
 This project is for educational purposes only. I will not be responsible for any misuse of this project by any party, or any damage caused by this project.
 
+[<img src="https://api.gitsponsors.com/api/badge/img?id=574290720" height="20">](https://api.gitsponsors.com/api/badge/link?p=KFYbutSs0pvM3IDfCOxUy/k3GP0oy6rjbvn0jbTQXtJFoK301ViM2T8gDX7u8jufoUS2dProxfv9X49YMFEy1OlylREWQfiN5iRVgzC9t/EXFH2xObRnKkc15nef0PfCVZgaGNqlO9c4XS0z7kRUgj5JfTO5xlhj7JIpdcOWlDw=)
