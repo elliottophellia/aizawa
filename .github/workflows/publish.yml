@@ -1,0 +1,57 @@
+name: Build and Publish Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Configure Poetry
+        run: |
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Build package
+        run: poetry build
+
+      - name: Get version from pyproject.toml
+        id: get_version
+        run: |
+          VERSION=$(poetry version -s)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to PyPI
+        run: poetry publish
+
+permissions:
+  contents: write
