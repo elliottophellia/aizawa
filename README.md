@@ -8,7 +8,7 @@
 # Aizawa
 Aizawa is a command-line tools designed to execute commands through HTTP header, enabling it to circumvent Web Application Firewalls (WAF) and Intrusion Detection Systems (IDS). Additionally, it is capable of bypassing `disable_function` restrictions, making it a tool of interest for security researchers and penetration testers. The name "Aizawa" is derived from Aizawa Ema, a virtual YouTuber associated with the Virtual Esport Project (VSPO), a group known for its focus on esports and virtual content creation.
 
-![Python](https://img.shields.io/badge/PYTHON-3.13+-bf616a?style=flat-square) ![License](https://img.shields.io/badge/LICENSE-GPL--3.0-ebcb8b?style=flat-square) ![Version](https://img.shields.io/badge/VERSION-3.0.0-a3be8c?style=flat-square) [<img src="https://api.gitsponsors.com/api/badge/img?id=574290720" height="20">](https://api.gitsponsors.com/api/badge/link?p=KFYbutSs0pvM3IDfCOxUy/k3GP0oy6rjbvn0jbTQXtJFoK301ViM2T8gDX7u8jufoUS2dProxfv9X49YMFEy1OlylREWQfiN5iRVgzC9t/EXFH2xObRnKkc15nef0PfCVZgaGNqlO9c4XS0z7kRUgj5JfTO5xlhj7JIpdcOWlDw=)
+![Python](https://img.shields.io/badge/PYTHON-3.13+-bf616a?style=flat-square) ![License](https://img.shields.io/badge/LICENSE-GPL--3.0-ebcb8b?style=flat-square) ![Version](https://img.shields.io/badge/VERSION-3.0.0-a3be8c?style=flat-square)
 
 [![Buy Me a Coffee](https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/ReidhoSatria) [![Traktir Saya Kopi](https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black)](https://saweria.co/elliottophellia)
 
