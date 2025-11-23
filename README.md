@@ -6,51 +6,72 @@
  /_/ |_/___/ /___/_/ |_|__/|__/_/ |_|
 ```
 # Aizawa
-Aizawa is a command-line webshell designed to execute commands through HTTP header, enabling it to circumvent Web Application Firewalls (WAF) and Intrusion Detection Systems (IDS). Additionally, it is capable of bypassing `disable_function` restrictions, making it a tool of interest for security researchers and penetration testers. The name "Aizawa" is derived from Aizawa Ema, a virtual YouTuber associated with the Virtual Esport Project (VSPO), a group known for its focus on esports and virtual content creation.
+Aizawa is a command-line tools designed to execute commands through HTTP header, enabling it to circumvent Web Application Firewalls (WAF) and Intrusion Detection Systems (IDS). Additionally, it is capable of bypassing `disable_function` restrictions, making it a tool of interest for security researchers and penetration testers. The name "Aizawa" is derived from Aizawa Ema, a virtual YouTuber associated with the Virtual Esport Project (VSPO), a group known for its focus on esports and virtual content creation.
 
-![Python](https://img.shields.io/badge/PYTHON-3.13-bf616a?style=flat-square) ![License](https://img.shields.io/badge/LICENCE-CC%20BY%20SA%204.0-ebcb8b?style=flat-square) ![Version](https://img.shields.io/badge/VERSION-2.0.0-a3be8c?style=flat-square) [<img src="https://api.gitsponsors.com/api/badge/img?id=574290720" height="20">](https://api.gitsponsors.com/api/badge/link?p=KFYbutSs0pvM3IDfCOxUy/k3GP0oy6rjbvn0jbTQXtJFoK301ViM2T8gDX7u8jufoUS2dProxfv9X49YMFEy1OlylREWQfiN5iRVgzC9t/EXFH2xObRnKkc15nef0PfCVZgaGNqlO9c4XS0z7kRUgj5JfTO5xlhj7JIpdcOWlDw=)
+![Python](https://img.shields.io/badge/PYTHON-3.13+-bf616a?style=flat-square) ![License](https://img.shields.io/badge/LICENSE-GPL--3.0-ebcb8b?style=flat-square) ![Version](https://img.shields.io/badge/VERSION-3.0.0-a3be8c?style=flat-square) [<img src="https://api.gitsponsors.com/api/badge/img?id=574290720" height="20">](https://api.gitsponsors.com/api/badge/link?p=KFYbutSs0pvM3IDfCOxUy/k3GP0oy6rjbvn0jbTQXtJFoK301ViM2T8gDX7u8jufoUS2dProxfv9X49YMFEy1OlylREWQfiN5iRVgzC9t/EXFH2xObRnKkc15nef0PfCVZgaGNqlO9c4XS0z7kRUgj5JfTO5xlhj7JIpdcOWlDw=)
 
 [![Buy Me a Coffee](https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-79B8CA?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/ReidhoSatria) [![Traktir Saya Kopi](https://img.shields.io/badge/TRAKTIR%20SAYA%20KOPI-FAC76C?style=for-the-badge&logo=BuyMeACoffee&logoColor=black)](https://saweria.co/elliottophellia)
 
 [![Changelogs](https://img.shields.io/badge/CHANGELOGS-2e3440?style=for-the-badge)](#Changelogs) [![Prerequisites](https://img.shields.io/badge/PREREQUISITES-2e3440?style=for-the-badge)](#Prerequisites) [![Installation](https://img.shields.io/badge/INSTALLATION-2e3440?style=for-the-badge)](#Installation) [![Features](https://img.shields.io/badge/FEATURES-2e3440?style=for-the-badge)](#Screenshot) [![License](https://img.shields.io/badge/LICENCE-2e3440?style=for-the-badge)](#Licence) [![Disclaimer](https://img.shields.io/badge/DISCLAIMER-2e3440?style=for-the-badge)](#Disclaimer)
 
 > [!WARNING]
-> The webshell is optimally compatible with PHP versions below 8.2. Users may experience connectivity issues when attempting to use this tool with PHP environments running version 8.2 or higher. This is a known issue that is currently being addressed in future updates.
+> The tools is optimally compatible with PHP versions below 8.2. Users may experience connectivity issues when attempting to use this tool with PHP environments running version 8.2 or higher. This is a known issue that is currently being addressed in future updates.
 
 > [!IMPORTANT]
-> The webshell itself is moved to [aizawa-webshell](https://github.com/elliottophellia/aizawa-webshell) repository. This repository is now dedicated to the webshell client.
+> The shell itself is moved to [aizawa-webshell](https://github.com/elliottophellia/aizawa-webshell) repository. This repository is now dedicated to the client.
 
 ## Changelogs
 
 ### Major Changes
-- Complete codebase rewrite using modern Python practices
-- Added Poetry for dependency management
-- Implemented XOR encryption for secure command transmission [#12](https://github.com/elliottophellia/aizawa/issues/12#issue-2212253928)
-- Removed HTTP_USER_AGENT and HTTP_ACCEPT_LANGUAGE methods
-- Enhanced error handling and input validation
-- Improved code organization with proper modularization
-- Added proxy support for requests
-- Implemented async/await pattern throughout
-- Added webshell key validation [#12](https://github.com/elliottophellia/aizawa/issues/12#issue-2212253928)
 
-### Removed Features
-- Removed legacy HTTP methods (USER_AGENT, ACCEPT_LANGUAGE)
-- Removed direct system command execution methods
-- Removed unused HTTP request methods
+#### Infrastructure Overhaul
+- Migrated from Poetry to uv for faster, more reliable dependency management
+- Restructured to professional src-layout (`src/aizawa/`) for better package distribution
+- Updated build system to use hatchling backend
+
+#### Python Modernization
+- Upgraded to Python 3.13+ with modern language features
+- Implemented `from __future__ import annotations` throughout codebase
+- Adopted PEP 585 type hints (`type[...]` instead of `Type[...]`)
+- Utilized `Self` type hint (PEP 673) for better type inference
+- Converted terminal colors to `StrEnum` (PEP 663) for type safety
+- Added `TYPE_CHECKING` blocks for optimized runtime imports
+
+#### Code Quality & Type Safety
+- Achieved 100% type coverage with mypy strict mode (0 errors)
+- Configured ruff with comprehensive ruleset (all checks enabled)
+- Added complete Google-style docstrings for all public APIs
+- Reorganized code into logical modules (core, http, utils)
+- Enhanced error messages with better formatting and clarity
+
+#### API Improvements
+- Renamed classes for better clarity:
+  - `Executor` → `CommandExecutor`
+  - `Validator` → `InputValidator`
+  - `HttpClient` → `AsyncHttpClient`
+  - `display_banner()` → `render_banner()`
+  - `Colors` → `TerminalColors`
+- Updated httpx client to use modern `proxy` parameter (was `proxies`)
+- Improved type hints on all public methods and functions
+
+#### License Change
+- Changed from CC-BY-SA-4.0 to GNU GPL-3.0-or-later
+- Provides better protection for open-source contributions
+- Ensures derivative works remain free and open
 
 ## Prerequisites
 
-- python 3.13+
-- poetry
-- httpx 0.25.0+
-- validators 0.22.0+
+- Python 3.13+
+- uv
+- httpx
+- validators
 
 ## Installation
 
 ### Release
 ```bash
-# Install using pipx
-pipx install aizawa
+# Install using pip
+pip install aizawa
 ```
 
 ### Development
@@ -61,14 +82,14 @@ git clone https://github.com/elliottophellia/aizawa
 # Change directory
 cd aizawa
 
-# Install dependencies using Poetry
-poetry install
+# Install dependencies using uv
+uv sync
 
 # Build the package
-poetry build
+uv build
 
 # Install the package
-pipx install dist/aizawa-2.0.0.tar.gz
+pip install dist/aizawa-3.0.0-py3-none-any.whl
 ```
 
 ## Usage
@@ -86,8 +107,8 @@ aizawa -u <URL> -k <KEY> -p <PROXY_URL>
 
 ### Command Line Arguments
 
-- `-u, --url`: Webshell URL
-- `-k, --key`: Webshell encryption key
+- `-u, --url`: tools URL
+- `-k, --key`: tools encryption key
 - `-p, --proxy`: Proxy URL (e.g., http://127.0.0.1:8080)
 - `-v, --version`: Show version information
 
@@ -104,7 +125,7 @@ aizawa -u <URL> -k <KEY> -p <PROXY_URL>
 
 ## License
 
-This project is licensed under the Creative Commons Attribution Share Alike 4.0 International (CC-BY-SA-4.0). For more information, please refer to the [LICENSE](LICENSE) file included in this repository.
+This project is licensed under the GNU General Public License v3.0 or later (GPL-3.0-or-later). For more information, please refer to the [LICENSE](LICENSE) file included in this repository.
 
 ## Disclaimer
 

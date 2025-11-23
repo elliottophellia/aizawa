@@ -1,18 +1,95 @@
-[tool.poetry]
+[project]
 name = "aizawa"
-version = "2.0.0"
+version = "3.0.0"
 description = "The Ninja's Choice for Web Operations"
-authors = ["elliottophellia"]
-packages = [{include = "aizawa"}]
+authors = [
+    { name = "Reidho Satria", email = "me@rei.my.id" }
+]
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "GPL-3.0-or-later" }
+keywords = ["security", "penetration-testing", "waf-bypass", "web-operations"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Typing :: Typed",
+]
+dependencies = [
+    "httpx>=0.25.0",
+    "validators>=0.22.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.13"
-httpx = "^0.25.0"
-validators = "^0.22.0"
-
-[tool.poetry.scripts]
+[project.scripts]
 aizawa = "aizawa.__main__:main"
 
+[project.urls]
+Homepage = "https://github.com/elliottophellia/aizawa"
+Repository = "https://github.com/elliottophellia/aizawa"
+Issues = "https://github.com/elliottophellia/aizawa/issues"
+
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aizawa"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+src = ["src"]
+extend-exclude = ["aizawa.old", "*.old"]
+
+[tool.ruff.lint]
+ignore = [
+    "D203",    # one-blank-line-before-class
+    "D213",    # multi-line-summary-second-line
+    "COM812",  # missing-trailing-comma (conflicts with formatter)
+    "ISC001",  # single-line-implicit-string-concatenation (conflicts with formatter)
+    "T201",    # print found (we need prints for CLI)
+    "S101",    # use of assert
+    "S501",    # SSL verification disabled (required for pentesting tool)
+    "S113",    # timeout=None (required for shell operations)
+    "BLE001",  # blind exception (acceptable for CLI error handling)
+    "TRY300",  # try-else block (prefer explicit return)
+    "E501",    # line too long (formatter handles this)
+    "PLR0913", # too many arguments (acceptable for shell function)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "D104"]
+"__main__.py" = ["D100"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = "validators"
+ignore_missing_imports = true
