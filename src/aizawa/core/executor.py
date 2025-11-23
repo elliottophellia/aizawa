@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import os
 from typing import TYPE_CHECKING
 
 from aizawa.utils.terminal import TerminalColors
@@ -16,42 +17,52 @@ class CommandExecutor:
 
     @staticmethod
     def encrypt_with_xor(plaintext: str, encryption_key: str) -> str:
-        """Encrypt data using XOR cipher with the given key.
+        """Encrypt data using XOR cipher with random IV.
 
         Args:
             plaintext: Data to encrypt.
             encryption_key: Encryption key for XOR operation.
 
         Returns:
-            Hex-encoded encrypted string.
+            Hex-encoded encrypted string with prepended IV.
 
         """
-        encrypted_chars = [
-            chr(ord(plaintext[i]) ^ ord(encryption_key[i % len(encryption_key)]))
-            for i in range(len(plaintext))
-        ]
-        return "".join(f"{ord(char):02x}" for char in encrypted_chars)
+        iv = os.urandom(16)
+        data = plaintext.encode('utf-8')
+        key = encryption_key.encode('utf-8')
+        offset = iv[0]
+
+        encrypted = b''
+        for i in range(len(data)):
+            k = key[(i + offset) % len(key)]
+            encrypted += bytes([data[i] ^ k ^ iv[i % 16]])
+
+        return (iv + encrypted).hex()
 
     @staticmethod
     def decrypt_with_xor(ciphertext: str, decryption_key: str) -> str:
-        """Decrypt XOR-encrypted hex string.
+        """Decrypt XOR-encrypted hex string with IV.
 
         Args:
-            ciphertext: Hex-encoded encrypted data.
+            ciphertext: Hex-encoded encrypted data with prepended IV.
             decryption_key: Decryption key for XOR operation.
 
         Returns:
             Decrypted plaintext string.
 
         """
-        encrypted_chars = [
-            chr(int(ciphertext[i : i + 2], 16)) for i in range(0, len(ciphertext), 2)
-        ]
-        encrypted_str = "".join(encrypted_chars)
-        return "".join(
-            chr(ord(encrypted_str[i]) ^ ord(decryption_key[i % len(decryption_key)]))
-            for i in range(len(encrypted_str))
-        )
+        data = bytes.fromhex(ciphertext)
+        iv = data[:16]
+        encrypted = data[16:]
+        key = decryption_key.encode('utf-8')
+        offset = iv[0]
+
+        decrypted = b''
+        for i in range(len(encrypted)):
+            k = key[(i + offset) % len(key)]
+            decrypted += bytes([encrypted[i] ^ k ^ iv[i % 16]])
+
+        return decrypted.decode('utf-8')
 
     @staticmethod
     async def run_command(
