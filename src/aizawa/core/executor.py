@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import sys
+import asyncio
 import os
 from typing import TYPE_CHECKING
 
@@ -131,24 +131,29 @@ class CommandExecutor:
 
         """
         while True:
-            prompt = (
-                f"\n{TerminalColors.BOLD}{TerminalColors.YELLOW}{username}{TerminalColors.CLEAR}@"
-                f"{TerminalColors.BOLD}{TerminalColors.BLUE}{hostname}{TerminalColors.CLEAR} "
-                f"{TerminalColors.PURPLE}{working_dir}{TerminalColors.CLEAR} % "
-            )
-            cmd = input(prompt)
+            try:
+                prompt = (
+                    f"\n{TerminalColors.BOLD}{TerminalColors.YELLOW}{username}{TerminalColors.CLEAR}@"
+                    f"{TerminalColors.BOLD}{TerminalColors.BLUE}{hostname}{TerminalColors.CLEAR} "
+                    f"{TerminalColors.PURPLE}{working_dir}{TerminalColors.CLEAR} % "
+                )
+                cmd = input(prompt)
 
-            if cmd in {"exit", "quit", "\x03"}:
-                sys.exit(
+                if cmd in {"exit", "quit"}:
                     print(
                         f"{TerminalColors.BOLD}{TerminalColors.RED}Exiting...{TerminalColors.CLEAR}",
-                    ),
+                    )
+                    return
+
+                if not cmd:
+                    continue
+
+                result = await CommandExecutor.run_command(
+                    client, url, cmd, shell_type, key,
                 )
-
-            if not cmd:
-                continue
-
-            result = await CommandExecutor.run_command(
-                client, url, cmd, shell_type, key,
-            )
-            print(f"\n{TerminalColors.CYAN}{result}{TerminalColors.CLEAR}")
+                print(f"\n{TerminalColors.CYAN}{result}{TerminalColors.CLEAR}")
+            except (KeyboardInterrupt, EOFError, asyncio.CancelledError):
+                print(
+                    f"\n{TerminalColors.BOLD}{TerminalColors.RED}Exiting...{TerminalColors.CLEAR}",
+                )
+                return

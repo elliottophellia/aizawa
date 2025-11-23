@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import getpass
 import re
+import signal
 import sys
 from argparse import ArgumentParser, Namespace, RawDescriptionHelpFormatter
 
@@ -107,13 +108,18 @@ async def async_main() -> None:
 
 def main() -> None:
     """Main entry point for the application."""
+    def signal_handler(_signum: int, _frame: object) -> None:
+        print(
+            f"\n{TerminalColors.BOLD}{TerminalColors.RED}Exiting...{TerminalColors.CLEAR}",
+        )
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, signal_handler)
     render_banner()
     try:
         asyncio.run(async_main())
-    except KeyboardInterrupt:
-        print(
-            f"\n{TerminalColors.BOLD}{TerminalColors.RED}Ctrl + C detected. Exiting...{TerminalColors.CLEAR}",
-        )
+    except (KeyboardInterrupt, SystemExit):
+        pass
 
 
 if __name__ == "__main__":
