@@ -27,6 +27,7 @@ class InputValidator:
         "http_aizawa_ninja_gc",
         "http_aizawa_ninja_json",
         "http_aizawa_ninja_filter",
+        "http_aizawa_ninja_classic",
     })
 
     @staticmethod
