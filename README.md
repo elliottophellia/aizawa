@@ -24,6 +24,11 @@ Aizawa is a command-line tools designed to execute commands through HTTP header,
 
 ### Major Changes
 
+#### Security Enhancements
+- Improved XOR encryption with random IV (initialization vector) per message
+- Enhanced protection against pattern analysis and replay attacks
+- Maintains backward compatibility with PHP 5.3 - 8.1
+
 #### Infrastructure Overhaul
 - Migrated from Poetry to uv for faster, more reliable dependency management
 - Restructured to professional src-layout (`src/aizawa/`) for better package distribution
